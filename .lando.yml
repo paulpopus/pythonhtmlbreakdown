@@ -1,0 +1,30 @@
+name: pythonhtmlbreakdown
+config:
+  webroot: dist
+services:
+  pythonapi:
+    type: python:3.7
+    ssl: false
+    build_as_root:
+      - pip install -r /app/requirements.txt
+    run:
+      - python main.py
+    ports:
+      - '64232:64232'
+  node:
+    type: node:12
+    install_dependencies_as_me:
+      - yarn install
+    ports:
+      - '64231:64231'
+tooling:
+  python:
+    service: pythonapi
+  pip:
+    service: pythonapi
+  yarn:
+    service: node
+  npm:
+    service: node
+  node:
+    service: node
