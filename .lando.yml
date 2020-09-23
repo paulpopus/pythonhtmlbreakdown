@@ -8,11 +8,13 @@ services:
     build_as_root:
       - pip install -r /app/requirements.txt
     run:
-      - python main.py
+      - python api/api.py
     ports:
       - '64232:64232'
   node:
     type: node:12
+    build:
+      - npm install -g @angular/cli
     install_dependencies_as_me:
       - yarn install
     ports:
@@ -28,3 +30,8 @@ tooling:
     service: node
   node:
     service: node
+  ng:
+    service: node # set up our angular utility
+  serve-frontend:
+    service: node
+    cmd: ng serve --port 64231 --host 0.0.0.0
