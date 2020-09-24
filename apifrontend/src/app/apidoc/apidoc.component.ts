@@ -5,11 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './apidoc.component.html',
   styleUrls: ['./apidoc.component.scss']
 })
-export class ApidocComponent implements OnInit {
+export class ApidocComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
