@@ -1,0 +1,37 @@
+<div class="result" [ngClass]="{'open': open === true, 'closed': open === false, 'deep': element.depth > 5, 'hidden': isHidden === true }">
+  <div class="element" [style.marginLeft.px]="getMarginLeft()">
+    <button class="element-label" (click)="toggleCloseOpenTag()">
+      {{ element.type }}
+      <span *ngIf="element.tag"> : {{ element.tag }}</span>
+    </button>
+    <div class="element-body" [ngClass]="{'open': open === true, 'closed': open === false }">
+      <div class="element-info id">
+        <div class="label">ID:</div>{{ element.id }}
+      </div>
+      <div class="element-info depth">
+        <div class="label">Depth:</div>{{ element.depth }}
+      </div>
+      <div *ngIf="element.attributes" class="element-info attributes">
+        <span class="label">Attributes:</span>
+        <div *ngFor="let attribute of element.attributes" class="list-of-attributes">
+          <ng-template [ngIf]="attribute[1]" [ngIfElse]="soloAttribute">
+            <div class="labelled">
+              <div class="label">{{ attribute[0] }}</div>
+              <div class="value">{{ attribute[1] }}</div>
+            </div>
+           </ng-template>
+
+           <ng-template #soloAttribute>
+             <div class="non-labelled">
+              {{ attribute[0] }}
+            </div>
+           </ng-template>
+        </div>
+      </div>
+      <div *ngIf="element.data" class="element-info data">
+        <span class="label">Data:</span>
+        <div class="value">{{ element.data }}</div>
+      </div>
+    </div>
+  </div>
+</div>

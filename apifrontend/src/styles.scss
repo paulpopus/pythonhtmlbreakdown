@@ -1,13 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-$black: rgb(31, 40, 54);
-$off-black: #2b3545;
-$white: white;
-$light-blue: #60c3fc;
-$orange: #edc988;
-$orange-light: #ffd57e;
-$red: #de4463;
-$purple: #821752;
+@import "variables.scss";
 
 
 /* FONT FAMILY DECLARATIONS */
@@ -199,6 +192,17 @@ header {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0.75rem 1.5rem 1rem 1.5rem;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  @media screen and (min-width: $screen-mobile) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   nav {
     ul {
@@ -220,6 +224,41 @@ header {
             border-color: $light-blue;
           }
         }
+      }
+    }
+  }
+
+  .api-status {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    background: $off-black;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    margin-top: 1rem;
+
+    @media screen and (min-width: $screen-mobile) {
+      margin-top: 0rem;
+    }
+
+    .api-status-label {
+      margin-left: 6px;
+    }
+
+    &.online {
+      border-color: $green;
+
+      .api-status-label {
+        color: $green;
+      }
+    }
+
+    &.offline {
+      border-color: $red;
+
+      .api-status-label {
+        color: $red;
       }
     }
   }

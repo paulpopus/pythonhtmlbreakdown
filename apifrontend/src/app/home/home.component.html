@@ -1,13 +1,31 @@
 <div class="homepage-typography">
   <h1>HTML Breakdown with a Python API</h1>
   <p>See a breakdown of your HTML.</p>
-  <p>I've mostly made this for my own personal learning, so it's not to be taken entirely seriously.</p>
+  <p>I've mostly made this for my own personal learning, so it probably won't receive future updates.</p>
 </div>
 <form class="homepage-form">
-  <textarea id="html-target" aria-label="Input your HTML to receive a breakdown of it below."></textarea>
+  <textarea #htmlTarget aria-label="Input your HTML to receive a breakdown of it below."><!DOCTYPE html><!--comment--><div class="sibling-div" disabled id="start">some text for my div<img class="loading" src="none.jpg" /><!--data source only?--></div><div class="sibling-div2"><div class="sibling-div2"><div class="sibling-div2"><div class="sibling-div2"></div><div class="sibling-div2"></div><div class="sibling-div2"><div class="sibling-div2"><div class="sibling-div2"><div class="sibling-div sibling sibling-div2"><div class="sibling-div2 sibling-div sibling">testing my data course<div class="sibling-div2"><div class="sibling-div2 sibling-div sibling"></div></div></div></div></div></div></div></div></div></div></textarea>
 
   <div class="form-buttons">
-    <button type="submit">Get breakdown</button>
-    <button>Try sample HTML</button>
+    <button type="button" name="get-request" (click)="getBreakdown(htmlTarget.value)">Get breakdown</button>
+    <button type="button" name="get-sample" (click)="getSampleData()">Try sample HTML</button>
   </div>
 </form>
+<div *ngIf="elements">
+  <h2>Results</h2>
+  <div class="summary">Amount of tags: <span #tagCount>{{ elements.length }}</span></div>
+  <div class="results-filter">
+    <div class="label">Tags shown:</div>
+    <div class="toggles">
+      <button [ngClass]="{'active': isTagHidden('Declaration')}" (click)="toggleTagInList('Declaration')">Declarations</button>
+      <button [ngClass]="{'active': isTagHidden('Comment')}" (click)="toggleTagInList('Comment')">Comments</button>
+      <button [ngClass]="{'active': isTagHidden('Element')}" (click)="toggleTagInList('Element')">Elements</button>
+    </div>
+  </div>
+  <div *ngFor="let element of elements" class="results-listing">
+    <div class="result">
+      <app-tag [element]="element" [hiddenTags]="hiddenTags"></app-tag>
+    </div>
+  </div>
+</div>
+

@@ -6,15 +6,20 @@ import { AppComponent } from './app.component';
 import { ApidocComponent } from './apidoc/apidoc.component';
 import { HomeComponent } from './home/home.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { TagComponent } from './tag/tag.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     ApidocComponent,
-    HomeComponent
+    HomeComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,3 +1,6 @@
+@import "../../variables.scss";
+
+
 .homepage-typography {
   max-width: 680px;
   margin: 0 auto;
@@ -7,10 +10,38 @@
 .homepage-form {
   max-width: 520px;
   margin: 0 auto;
+  margin-bottom: 32px;
 
   .form-buttons {
     margin-top: 0.5rem;
     display: flex;
     justify-content: center;
   }
+}
+
+.summary {
+  margin-bottom: 1rem;
+}
+
+.results-filter {
+  margin-bottom: 1rem;
+
+  .label {
+    margin-bottom: 0.75rem;
+  }
+
+  .toggles {
+    button {
+      background: none;
+      border: 2px solid $off-black;
+      color: $white;
+      opacity: 0.75;
+
+      &.active {
+        border-color: $green;
+        opacity: 1;
+      }
+    }
+  }
+
 }

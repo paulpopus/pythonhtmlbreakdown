@@ -3,6 +3,7 @@ import re
 import flask
 
 from flask import request, jsonify
+from flask_cors import CORS
 
 from html.parser import HTMLParser
 
@@ -95,12 +96,22 @@ def serialiseTags(class_list):
   custom_list = []
 
   for index_id, entity in class_list.items():
-    serialised_tag = {
-      'id': index_id,
-      'depth': entity.depth,
-      'type': entity.entityType,
-      'data': entity.data
-    }
+    if entity.entityType != 'Element':
+      serialised_tag = {
+        'id': index_id,
+        'depth': entity.depth,
+        'type': entity.entityType,
+        'data': entity.data
+      }
+    else:
+      serialised_tag = {
+        'id': index_id,
+        'depth': entity.depth,
+        'type': entity.entityType,
+        'tag': entity.tag,
+        'attributes': entity.attributes,
+        'data': entity.data
+      }
     custom_list.append(serialised_tag)
 
   return custom_list
@@ -113,28 +124,23 @@ app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 app.config['JSON_SORT_KEYS'] = False
 
+CORS(app)
 
 
 
 @app.route('/', methods=['GET'])
 def home():
   return "<h1>Distant Reading Archive</h1><p>This site is a prototype API for distant reading of science fiction novels.</p>"
+
 @app.route('/sample', methods=['GET'])
-def api_all():
+def api_sample():
   return runParser(sampleHTML)
 
-@app.route('/process', methods=['POST'])
+@app.route('/process', methods=['GET'])
 def api_query():
   html = request.args.get('html')
-  return runParser(sampleHTML)
+  return runParser(html)
+
 
 app.run(host = '0.0.0.0', port = 64232)
-
-
-
-
-
-
-
-# search(mytext3)
 
