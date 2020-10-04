@@ -11,11 +11,11 @@
     <span class="api-status-label">Online</span> -->
     <ng-template [ngIf]="apiConnection" [ngIfElse]="offline">
       <span class="api-status-label">Online</span>
-     </ng-template>
+    </ng-template>
 
-     <ng-template #offline>
+    <ng-template #offline>
       <span class="api-status-label">Offline</span>
-     </ng-template>
+    </ng-template>
   </div>
 </header>
 

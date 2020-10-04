@@ -16,12 +16,20 @@ export class TagComponent implements OnInit, OnChanges {
 
   @Input() hiddenTags: Array<string>;
 
+  @Input() warningsOnly: boolean;
+
   open: boolean = true;
 
   isHidden: boolean = false;
 
+  hasWarnings: boolean = false;
+
   ngOnInit(): void {
-    this.element.depth > 1 ? this.open = false : this.open = true
+    this.element.depth > 1 ? this.open = false : this.open = true;
+
+    if (this.element.warnings && this.element.warnings.length > 0) {
+      this.hasWarnings = true;
+    }
   }
 
   getMarginLeft() {
@@ -37,14 +45,19 @@ export class TagComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.hiddenTags.includes(this.element.type)) {
-      this.isHidden = true
+    if (this.hiddenTags.includes(this.element.type) && !this.warningsOnly) {
+      this.isHidden = true;
+    } else if (this.warningsOnly) {
+      this.isHidden = true;
+      if (this.hasWarnings) {
+        this.isHidden = false;
+      }
     } else {
-      this.isHidden = false
+      this.isHidden = false;
     }
   }
 
   toggleCloseOpenTag() {
-    this.open = !this.open
+    this.open = !this.open;
   }
 }

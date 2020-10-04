@@ -21,6 +21,23 @@
 
 .summary {
   margin-bottom: 1rem;
+
+  .statistic {
+    margin-bottom: 0.2rem;
+
+    .label {
+      margin-right: 0.5rem;
+      font-weight: 600;
+    }
+
+    &.child {
+      margin-left: 1.5rem;
+
+      &:last-of-type {
+        margin-bottom: 1rem;
+      }
+    }
+  }
 }
 
 .results-filter {
@@ -28,6 +45,7 @@
 
   .label {
     margin-bottom: 0.75rem;
+    font-weight: 600;
   }
 
   .toggles {
@@ -40,6 +58,11 @@
       &.active {
         border-color: $green;
         opacity: 1;
+      }
+
+      &.warning-only {
+        display: block;
+        margin-top: 1rem;
       }
     }
   }
