@@ -5,9 +5,11 @@ import flask
 from flask import request, jsonify
 from flask_cors import CORS
 
-from html.parser import HTMLParser
+from lxml import etree
 
-import urllib.parse
+from io import StringIO, BytesIO
+
+import urllib
 
 sampleHTML = '<!DOCTYPE html><!--comment--><div class="sibling-div" disabled id="start">some text for my div<img class="loading" src="none.jpg" /><!--data source only?--></div><div class="sibling-div2"></div>'
 
@@ -47,7 +49,7 @@ class Comment(BaseHTMLEntity):
     BaseHTMLEntity.__init__(self, 'Comment', depth, data)
 
 
-class HTMLHelpers():
+class WarningsList():
   # Returns true if the attributes contains an alt tag
   def test():
     pass
@@ -60,20 +62,8 @@ def ImageContainsAltTag(attributes):
         return True
   return False
 
-def isDataEmpty(data):
-  reg = '(\\n)+(\s)'
-
-  if re.match(reg, data):
-    return True
-
-  return False
-
-class customHTMLParser(HTMLParser):
+class customHTMLParser():
   def __init__(self, htmlList):
-    # Initialize the base class
-    HTMLParser.__init__(self)
-    # Keep track of opened tags, expecting them to be closed, otherwise we can assume bad HTML
-    self.started_tags = []
     # Keep track of our depth
     self.depth = 0
     # Provide an ID for every tag
@@ -89,10 +79,9 @@ class customHTMLParser(HTMLParser):
     self.htmlList = htmlList
     self.statistics = htmlList["statistics"]
 
-  def handle_starttag(self, tag, attrs):
+  def start(self, tag, attrib):
     # Update internal counters
-    self.current_tag = Element(str(tag), attrs, self.depth)
-    self.started_tags.append(tag)
+    self.current_tag = Element(str(tag), dict(attrib), self.depth)
     self.index += 1
     self.depth += 1
     self.counter_elements += 1
@@ -101,38 +90,28 @@ class customHTMLParser(HTMLParser):
     self.htmlList["statistics"]["elements"] = self.counter_elements
 
     if str(tag) == "img":
-      if not ImageContainsAltTag(attrs):
+      if not ImageContainsAltTag(attrib):
         self.current_tag.add_warning({"label": "Missing alt text", "description":"Images should contain alt text describing the image."})
         self.counter_warnings += 1
         self.htmlList["statistics"]["warnings"] = self.counter_warnings
 
-  def handle_data(self, data):
+
+  def data(self, data):
     if not data.isspace():
       self.current_tag.add_data(data)
 
-
-  def handle_endtag(self, tag):
-    if len(self.started_tags) > 0 and self.depth > 0 and tag == self.started_tags[-1]:
-      del self.started_tags[-1]
-      self.depth -= 1
-
-  def handle_comment(self, data):
+  def comment(self, text):
     # Update internal counters
-    self.current_tag = Comment(self.depth, data)
+    self.current_tag = Comment(self.depth, text)
     self.index += 1
     self.counter_comments += 1
     # Update the dictionary
     self.htmlList["elements"][self.index] = self.current_tag
     self.htmlList["statistics"]["comments"] = self.counter_comments
 
-  def handle_decl(self, decl):
-    # Update internal counters
-    self.current_tag = Declaration(self.depth, decl)
-    self.index += 1
-    self.counter_declarations += 1
-    # Update the dictionary
-    self.htmlList["elements"][self.index] = self.current_tag
-    self.htmlList["statistics"]["declarations"] = self.counter_declarations
+  def close(self):
+    print("close")
+    return "closed!"
 
 
 def parseHTML(htmlText):
@@ -145,13 +124,16 @@ def parseHTML(htmlText):
     },
     "elements": {},
   }
-  parser = customHTMLParser(mylist)
-  parser.feed(htmlText)
+
+  parser = etree.HTMLParser(target = customHTMLParser(mylist))
+  etree.parse(StringIO(htmlText), parser)
+
+  print(mylist)
 
   return mylist
 
 
-# Recursive function to serialise the instances of Element class
+# Function to serialise the instances of Element class
 def serialiseTags(class_list):
   serialised_list = {
     "statistics": {},
@@ -185,12 +167,12 @@ def serialiseTags(class_list):
 def runParser(htmlText):
   return jsonify(serialiseTags(parseHTML(htmlText)))
 
+
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 app.config['JSON_SORT_KEYS'] = False
 
 CORS(app)
-
 
 
 @app.route('/', methods=['GET'])
@@ -201,10 +183,9 @@ def home():
 def api_sample():
   return runParser(sampleHTML)
 
-@app.route('/process', methods=['GET', 'POST'])
+@app.route('/process', methods=['GET'])
 def api_query():
   html = request.args.get('html')
-  encoded = request.args.get('encoded')
 
   decoded_html = urllib.parse.unquote(html)
 
@@ -215,4 +196,3 @@ def api_query():
 
 
 app.run(host = '0.0.0.0', port = 64232)
-
