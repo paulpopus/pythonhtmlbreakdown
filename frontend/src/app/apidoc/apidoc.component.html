@@ -1,1 +1,56 @@
-<p>apidoc works!</p>
+<div class="apidoc-typography">
+  <h1>API documentation</h1>
+  <p>This API is built using Python and Flask to handle requests, HTML parsing is handled using <a href="https://lxml.de/">lxml</a>.<br><a href="#">View on GitHub</a>.</p>
+  <p>I've made this API as a way to learn Python and get into a bit of API making and to try out Angular for the frontend.</p>
+  <p>The api currently sits at this URL: some url</p>
+
+  <h2>Endpoints</h2>
+  <div class="api-doc">
+    <div class="doc-block">
+      <pre><code>GET /sample</code></pre>
+      <div>
+        <p>Will return some sample HTML if you just want to test it briefly. The returned object will contain a <mark>statistics</mark> and an <mark>elements</mark> key.</p>
+      </div>
+      <div *ngIf="sampleHTMLExampleBlock2" class="code-example">
+        <p><strong>Example:</strong></p>
+        <app-accordion [firstCodeBlock]="sampleHTMLExampleBlock1" [secondCodeBlock]="sampleHTMLExampleBlock2"></app-accordion>
+      </div>
+    </div>
+
+    <div class="doc-block">
+      <pre><code>GET /process</code></pre>
+      <div>
+        <p>Make a request against this endpoint to retrieve a JSON object.</p>
+        <p>There are two arguments you can pass, the value of both has to be <em>URI encoded</em>:</p>
+        <ul>
+          <li>
+            <mark>html</mark> for passing HTML
+          </li>
+          <li>
+            <mark>url</mark> for passing a URL
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="processHTMLExampleBlock2" class="code-example">
+        <p><strong>HTML example:</strong></p>
+        <app-accordion [firstCodeBlock]="processHTMLExampleBlock1" [secondCodeBlock]="processHTMLExampleBlock2"></app-accordion>
+      </div>
+      <div *ngIf="processURLExampleBlock2" class="code-example">
+        <p><strong>URL example:</strong></p>
+        <app-accordion [firstCodeBlock]="processURLExampleBlock1" [secondCodeBlock]="processURLExampleBlock2"></app-accordion>
+      </div>
+    </div>
+
+    <div class="doc-block">
+      <pre><code>GET /warnings</code></pre>
+      <div>
+        <p>Get a list of warnings with their keys.</p>
+      </div>
+      <div *ngIf="warningsExampleBlock2" class="code-example">
+        <p><strong>Example:</strong></p>
+        <app-accordion [firstCodeBlock]="warningsExampleBlock1" [secondCodeBlock]="warningsExampleBlock2"></app-accordion>
+      </div>
+    </div>
+  </div>
+</div>
+

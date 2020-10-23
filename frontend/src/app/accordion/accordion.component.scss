@@ -1,0 +1,25 @@
+@import "../../variables.scss";
+
+.accordion-content {
+  display: none;
+
+  code {
+    background: darken($black, 7);
+    padding: 10px;
+    margin-bottom: 8px;
+    display: inline-block;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+
+  &.open {
+    display: block;
+  }
+}

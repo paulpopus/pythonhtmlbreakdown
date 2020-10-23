@@ -1,0 +1,13 @@
+<button *ngIf="secondCodeBlock" (click)="toggleAccordion()" [attr.aria-pressed]="isOpen === true ? true : false">
+  <ng-template [ngIf]="isOpen" [ngIfElse]="close">
+    <span>Hide example</span>
+  </ng-template>
+
+  <ng-template #close>
+    <span>Show example</span>
+  </ng-template>
+</button>
+<div *ngIf="secondCodeBlock" class="accordion-content" [ngClass]="{'open': isOpen === true }">
+  <pre><code [innerHTML]="firstCodeBlock"></code></pre>
+  <pre><code [innerHTML]="secondCodeBlock"></code></pre>
+</div>

@@ -20,19 +20,19 @@
           </div>
         </div>
       </div>
-      <div *ngIf="element.attributes && element.attributes.length > 0" class="element-info attributes">
+      <div *ngIf="element.attributes && getObjectSize(element.attributes) > 0" class="element-info attributes">
         <span class="label">Attributes:</span>
-        <div *ngFor="let attribute of element.attributes" class="list-of-attributes">
-          <ng-template [ngIf]="attribute[1]" [ngIfElse]="soloAttribute">
+        <div *ngFor="let attribute of element.attributes | keyvalue:keepOriginalOrder" class="list-of-attributes">
+          <ng-template [ngIf]="attribute.value" [ngIfElse]="soloAttribute">
             <div class="labelled">
-              <div class="label">{{ attribute[0] }}</div>
-              <div class="value">{{ attribute[1] }}</div>
+              <div class="label">{{ attribute.key }}</div>
+              <div class="value">{{ attribute.value }}</div>
             </div>
            </ng-template>
 
            <ng-template #soloAttribute>
              <div class="non-labelled">
-              {{ attribute[0] }}
+              {{ attribute.key }}
             </div>
            </ng-template>
         </div>

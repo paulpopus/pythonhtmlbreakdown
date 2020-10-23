@@ -7,14 +7,15 @@ import { ApiService } from './api/api.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'apifrontend';
+  title = 'Python HTML Breakdown';
   apiConnection: boolean = false;
 
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    if (this.apiService.getSample()) {
-      this.apiConnection = true;
-    }
+    this.apiService.getSample().subscribe(
+      data => this.apiConnection = true,
+      error => this.apiConnection = false
+    );
   }
 }

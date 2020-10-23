@@ -7,8 +7,6 @@
   </nav>
   <div class="api-status offline" [ngClass]="{'offline': apiConnection === false, 'online': apiConnection === true }">
     API Status:
-    <!-- <span *ngIf="!apiConnection" class="api-status-label">Offline</span>
-    <span class="api-status-label">Online</span> -->
     <ng-template [ngIf]="apiConnection" [ngIfElse]="offline">
       <span class="api-status-label">Online</span>
     </ng-template>

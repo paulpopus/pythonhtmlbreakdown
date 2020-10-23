@@ -295,3 +295,8 @@ button {
     margin-right: 0;
   }
 }
+
+mark {
+  background: darken($color: $black, $amount: 7);
+  color: $white;
+}

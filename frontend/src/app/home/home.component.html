@@ -1,11 +1,12 @@
 <div class="homepage-typography">
   <h1>HTML Breakdown with a Python API</h1>
   <p>This tool will parse your HTML and return a list of all elements with their data and attributes. Built with Angular and Python.</p>
+  <p>Note: currently due to the HTML parser, broken HTML is automatically fixed and you'll find that the result will contain the wrapped <mark>&lt;html&gt;</mark> and <mark>&lt;body&gt;</mark> elements.</p>
 </div>
 
 <form class="homepage-form">
-  <p>You can paste your HTML below or you can <a routerLink="/api">use the API.</a></p>
-  <textarea #htmlTarget aria-label="Input your HTML to receive a breakdown of it below."><!DOCTYPE html><!--comment--><div class="sibling-div" disabled id="start">some text for my div<img class="loading" src="none.jpg" /><!--data source only?--></div><div class="sibling-div2"><div class="sibling-div2"><div class="sibling-div2"><div class="sibling-div2"></div><div class="sibling-div2"></div><div class="sibling-div2"><div class="sibling-div2"><div class="sibling-div2"><div class="sibling-div sibling sibling-div2"><div class="sibling-div2 sibling-div sibling">testing my data course<div class="sibling-div2"><div class="sibling-div2 sibling-div sibling"></div></div></div></div></div></div></div></div></div></div></textarea>
+  <p>You can paste your HTML below, paste a link in or you can <a routerLink="/api">use the API.</a></p>
+  <textarea #htmlTarget aria-label="Input your HTML to receive a breakdown of it below.">https://google.com</textarea>
 
   <div class="form-buttons">
     <button type="button" name="get-request" (click)="getBreakdown(htmlTarget.value)">Get breakdown</button>
@@ -17,9 +18,6 @@
   <div class="summary">
     <div class="statistic">
       <span class="label">Total number of tags:</span><span class="value">{{ elements.length }}</span>
-    </div>
-    <div class="statistic child">
-      <span class="label">Declarations:</span><span class="value">{{ statistics.declarations }}</span>
     </div>
     <div class="statistic child">
       <span class="label">Comments:</span><span class="value">{{ statistics.comments }}</span>
@@ -34,7 +32,6 @@
   <div class="results-filter">
     <div class="label">Filters:</div>
     <div class="toggles">
-      <button [ngClass]="{'active': isTagHidden('Declaration') && !warningsOnly}" (click)="toggleTagInList('Declaration')" [attr.aria-pressed]="isTagHidden('Declaration') && !warningsOnly ? true : false">Declarations</button>
       <button [ngClass]="{'active': isTagHidden('Comment') && !warningsOnly}" (click)="toggleTagInList('Comment')" [attr.aria-pressed]="isTagHidden('Comment') && !warningsOnly ? true : false">Comments</button>
       <button [ngClass]="{'active': isTagHidden('Element') && !warningsOnly}" (click)="toggleTagInList('Element')" [attr.aria-pressed]="isTagHidden('Element') && !warningsOnly ? true : false">Elements</button>
       <button class="warning-only" [ngClass]="{'active': warningsOnly}" (click)="toggleWarningsOnly()" [attr.aria-pressed]="warningsOnly ? true : false">Warnings only</button>

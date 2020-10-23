@@ -6,16 +6,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApidocComponent } from './apidoc/apidoc.component';
 import { HomeComponent } from './home/home.component';
+import { TagComponent } from './tag/tag.component';
+import { AccordionComponent } from './accordion/accordion.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { TagComponent } from './tag/tag.component';
+import { RouteReuseStrategy } from '@angular/router';
+import { CustomRouteReuseStrategy } from './routing/routeCaching';
 
 @NgModule({
   declarations: [
     AppComponent,
     ApidocComponent,
     HomeComponent,
-    TagComponent
+    TagComponent,
+    AccordionComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +27,10 @@ import { TagComponent } from './tag/tag.component';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{
+    provide: RouteReuseStrategy,
+    useClass: CustomRouteReuseStrategy,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

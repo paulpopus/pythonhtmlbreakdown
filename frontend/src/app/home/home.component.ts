@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
 
   warningsOnly: boolean = false;
 
-  showDeclarations: boolean = true;
   showComments: boolean = true;
   showElements: boolean = true;
 
@@ -33,22 +32,45 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  isValidUrl(url: string) {
+    try {
+      new URL(url);
+    } catch (_) {
+      return false;
+    }
+
+    return true;
+  }
+
+  getDataByHTML(HTML: string) {
+    this.apiService.processHTML(HTML).subscribe((data: ApiResult)=>{
+      this.elements = data.elements;
+      this.statistics = data.statistics;
+    });
+  }
+
+  getDataByURL(URL: string) {
+    this.apiService.processURL(URL).subscribe((data: ApiResult)=>{
+      this.elements = data.elements;
+      this.statistics = data.statistics;
+    });
+  }
+
   ngOnInit() {
     console.log('initiated')
     console.log("Warning is:" + this.warningsOnly)
   }
 
-  getBreakdown(HTML: string) {
-    this.apiService.processHTML(HTML).subscribe((data: ApiResult)=>{
-      this.elements = data.elements;
-      this.statistics = data.statistics;
-    });
-    console.log(this.elements)
+  getBreakdown(value: string) {
+    if (this.isValidUrl(value)) {
+      this.getDataByURL(value);
+    } else {
+      this.getDataByHTML(value);
+    }
   }
 
   toggleWarningsOnly() {
     this.warningsOnly = !this.warningsOnly
-    console.log("Warning is:" + this.warningsOnly)
   }
 
   toggleTagInList(tag: string) {
@@ -59,15 +81,15 @@ export class HomeComponent implements OnInit {
         let index = this.hiddenTags.indexOf(tag);
         this.hiddenTags.splice(index, 1);
       } else {
-        this.hiddenTags.push(tag)
+        this.hiddenTags.push(tag);
       }
     }
 
-    this.hiddenTags = this.hiddenTags.concat()
+    this.hiddenTags = this.hiddenTags.concat();
   }
 
 
   isTagHidden(tag: string) {
-    return !this.hiddenTags.includes(tag)
+    return !this.hiddenTags.includes(tag);
   }
 }

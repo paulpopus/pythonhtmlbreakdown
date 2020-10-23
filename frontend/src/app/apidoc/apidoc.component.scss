@@ -1,0 +1,39 @@
+@import "../../variables.scss";
+
+code {
+  background: darken($black, 7);
+  padding: 10px;
+  margin-bottom: 8px;
+  display: inline-block;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+mark {
+  padding: 6px;
+  display: inline-block;
+}
+
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.apidoc-typography {
+
+  h2 {
+    margin-bottom: 32px;
+  }
+
+  p + h2 {
+    margin-top: 42px;
+  }
+}
+
+
+.api-doc {
+  .doc-block {
+    margin-bottom: 54px;
+  }
+}

@@ -44,6 +44,10 @@ export class TagComponent implements OnInit, OnChanges {
     return margin
   }
 
+  getObjectSize(object: Object) {
+    return Object.keys(object).length
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (this.hiddenTags.includes(this.element.type) && !this.warningsOnly) {
       this.isHidden = true;

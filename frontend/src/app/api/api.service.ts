@@ -13,7 +13,14 @@ export class ApiService {
   }
 
   public processHTML(HTML: string) {
-    let string = HTML.replace(/\s/g, "")
     return this.httpClient.get(`http://localhost:64232/process?html=${encodeURI(HTML)}`);
+  }
+
+  public processURL(URL: string) {
+    return this.httpClient.get(`http://localhost:64232/process?url=${encodeURI(URL)}`);
+  }
+
+  public getWarnings(){
+    return this.httpClient.get(`http://localhost:64232/warnings`);
   }
 }
