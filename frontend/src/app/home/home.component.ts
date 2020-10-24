@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   isValidUrl(url: string) {
     try {
       new URL(url);
-    } catch (_) {
+    } catch (error) {
       return false;
     }
 
@@ -57,8 +57,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('initiated')
-    console.log("Warning is:" + this.warningsOnly)
+
   }
 
   getBreakdown(value: string) {

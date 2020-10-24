@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
+import { environment } from './../../environments/environment';
 
 @Component({
   selector: 'app-apidoc',
@@ -21,6 +22,8 @@ export class ApidocComponent implements OnInit {
 
   warningsExampleBlock1: string = 'GET /warnings';
   warningsExampleBlock2: string = null;
+
+  apiURL = environment.apiUrl;
 
 
   ngOnInit(): void {

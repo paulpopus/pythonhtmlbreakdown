@@ -2,14 +2,14 @@
   <h1>API documentation</h1>
   <p>This API is built using Python and Flask to handle requests, HTML parsing is handled using <a href="https://lxml.de/">lxml</a>.<br><a href="#">View on GitHub</a>.</p>
   <p>I've made this API as a way to learn Python and get into a bit of API making and to try out Angular for the frontend.</p>
-  <p>The api currently sits at this URL: some url</p>
+  <p>The API can be found at: <span [innerHTML]="apiURL"></span></p>
 
   <h2>Endpoints</h2>
   <div class="api-doc">
     <div class="doc-block">
       <pre><code>GET /sample</code></pre>
       <div>
-        <p>Will return some sample HTML if you just want to test it briefly. The returned object will contain a <mark>statistics</mark> and an <mark>elements</mark> key.</p>
+        <p>Will return some sample HTML if you just want to test it briefly. The returned JSON object will contain a <mark>statistics</mark> and an <mark>elements</mark> key.</p>
       </div>
       <div *ngIf="sampleHTMLExampleBlock2" class="code-example">
         <p><strong>Example:</strong></p>
