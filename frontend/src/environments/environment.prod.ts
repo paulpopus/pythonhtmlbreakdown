@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://my-api-url'
+  apiUrl: 'https://pythonhtmlbreakdown.api.paulpopus.dev'
 };
