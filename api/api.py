@@ -2,6 +2,8 @@ import re
 
 import flask
 
+import os
+
 from flask import request, jsonify
 from flask_cors import CORS
 
@@ -246,4 +248,5 @@ def api_deprecated_tags():
   return jsonify(tuple(deprecated_tags))
 
 
-app.run(host = '0.0.0.0', port = 64232)
+if os.environ.get('local'):
+  app.run(host = '0.0.0.0', port = 64232)
