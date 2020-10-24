@@ -24,4 +24,8 @@ export class ApiService {
   public getWarnings(){
     return this.httpClient.get(`${environment.apiUrl}/warnings`);
   }
+
+  public getDeprecatedTags(){
+    return this.httpClient.get(`${environment.apiUrl}/deprecated_tags`);
+  }
 }

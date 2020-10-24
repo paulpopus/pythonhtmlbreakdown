@@ -23,6 +23,9 @@ export class ApidocComponent implements OnInit {
   warningsExampleBlock1: string = 'GET /warnings';
   warningsExampleBlock2: string = null;
 
+  deprecatedTagsExampleBlock1: string = 'GET /deprecated_tags';
+  deprecatedTagsExampleBlock2: string = null;
+
   apiURL = environment.apiUrl;
 
 
@@ -41,6 +44,10 @@ export class ApidocComponent implements OnInit {
 
     this.apiService.getWarnings().subscribe((data)=>{
       this.warningsExampleBlock2 = JSON.stringify(data, null, 2);
+    });
+
+    this.apiService.getDeprecatedTags().subscribe((data)=>{
+      this.deprecatedTagsExampleBlock2 = JSON.stringify(data, null, 2);
     });
   }
 

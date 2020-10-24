@@ -241,5 +241,9 @@ def api_query():
 def api_warnings():
   return warning_list
 
+@app.route('/deprecated_tags', methods=['GET'])
+def api_deprecated_tags():
+  return jsonify(tuple(deprecated_tags))
+
 
 app.run(host = '0.0.0.0', port = 64232)

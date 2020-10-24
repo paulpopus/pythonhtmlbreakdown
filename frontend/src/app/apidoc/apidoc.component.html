@@ -51,6 +51,17 @@
         <app-accordion [firstCodeBlock]="warningsExampleBlock1" [secondCodeBlock]="warningsExampleBlock2"></app-accordion>
       </div>
     </div>
+
+    <div class="doc-block">
+      <pre><code>GET /deprecated_tags</code></pre>
+      <div>
+        <p>Get a list of deprecated tags that the current warning tests against.</p>
+      </div>
+      <div *ngIf="deprecatedTagsExampleBlock2" class="code-example">
+        <p><strong>Example:</strong></p>
+        <app-accordion [firstCodeBlock]="deprecatedTagsExampleBlock1" [secondCodeBlock]="deprecatedTagsExampleBlock2"></app-accordion>
+      </div>
+    </div>
   </div>
 </div>
 
